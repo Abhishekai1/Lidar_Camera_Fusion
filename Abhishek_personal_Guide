@@ -1,0 +1,184 @@
+source devel/setup.bash
+roslaunch velodyne_pointcloud VLP16_points.launch
+rosrun velodyne_driver velodyne_node
+
+
+rosrun rviz rviz -f velodyne
+
+roscore(if required)
+roslaunch velodyne_pointcloud VLP16_points.launch
+
+rosrun lidar_camera_fusion interpolated_node
+rosrun lidar_camera_fusion lidar_camera_node
+
+---------------------------------------------------------------
+
+FINAL:
+
+source devel/setup.bash
+roslaunch usb_cam usb_cam.launch
+
+<param name="video_device" value="/dev/video1" />
+
+source devel/setup.bash
+roslaunch lidar_camera_fusion vlp16OnImg.launch
+
+source devel/setup.bash
+roslaunch lidar_camera_fusion interpolated_vlp16.launch
+
+rosrun rviz rviz -f velodyne
+
+source devel/setup.bash
+roslaunch lidar_camera_fusion vlp16OnImg_offline.launch 
+
+capture 
+pcds = rosrun pcl_ros pointcloud_to_pcd input:=/points2
+view =  pcl_viewer 0.pcd
+
+image =  rosrun image_view image_view image:=/pcOnImage_image
+
+--------------------------------------------------------------------
+rviz
+rviz -d /home/ubuntu18/Documents/lidar_camera_fusion/src/lidar_camera_fusion/rviz/lidar_camera.rviz
+
+-----------------------------------------------------------------
+matlab run :
+
+/usr/local/MATLAB/R2024b/bin/matlab
+
+-------------------------------------------------------------------------------------------
+camera calibration run:
+
+rosrun camera_calibration cameracalibrator.py --size 8x5 --square 0.04 image:=/usb_cam/image_raw camera:=/usb_cam
+
+------------------------------------------------------------------
+creating rosbag:
+
+rosbag record -O lidar_camera_data.bag /velodyne_points /usb_cam/image_raw
+
+rosbag play --loop lidar_camera_data.bag
+
+--------------------------------------------------------------------
+orginal(github)
+
+camera_matrix: [915.828857, 0.000000, 644.015094, 0.000000,
+0.000000, 925.069885, 372.912666, 0.000000,
+0.000000, 0.000000, 1.000000, 0.000000,]
+
+rlc:  [   0.999715  ,-0.00610437 ,0.023068,  
+  0.0113064 , 0.972496   ,-0.232646,  
+ -0.0210134 , 0.23284    ,0.972288 ]
+
+tlc: [ -0.0549389263, -0.059792, 0.12]
+
+--------------------------------------------------------------------
+
+(good)
+0.00789326877324261	-0.173578768336084	0.117846464486631
+
+
+rlc:  [   0.986687  ,0.159473 ,-0.031859,  
+ -0.042496 , 0.063735   ,-0.9`97061,  
+ -0.156974 , 0.985142   ,0.069664 ]
+
+1438.07590748262	0	646.197516031712
+0	1440.24334679873	466.588305844993
+0	0	1
+
+(GOOD)
+camera_matrix: [1438.075907, 0.000000, 646.197516, 0.000000,
+0.000000, 1440.243346, 466.588305, 0.000000,
+0.000000, 0.000000, 1.000000, 0.000000,]
+
+rlc:  [   0.999715  ,-0.00610437 ,0.023068,  
+  0.0113064 , 0.972496   ,-0.232646,  
+ -0.0210134 , 0.23284    ,0.972288 ]
+
+
+tlc: [ 0.007893, -0.173578, 0.117846]
+---------------------------------------------------------------------
+
+abhishek
+camera_matrix: [1422.207590, 0.000000, 644.5849, 0.000000,
+0.000000, 1425.543346, 460.5517, 0.000000,
+0.000000, 0.000000, 1.000000, 0.000000,]
+
+rlc:  [   0.9872, −0.0168, −0.1584,
+  0.1592, 0.0601, 0.9854,  
+  −0.0071, −0.9981, 0.0620]
+
+tlc: [0.0133 -0.1560 0.0764]
+---------------------------------------------------------
+camera_matrix: [789.42838, 0.000000, 344.84939, 0.000000,
+0.000000, 789.375000, 224.42001, 0.000000, 
+0.000000, 0.000000, 1.000000, 0.000000  ]   #calibration
+------------------------------------------------------------------
+kitti calib
+camera_matrix: [984.2439, 0.0000, 690.0000, 
+                0.0000, 980.8141, 233.1966, 
+                0.0000, 0.0000, 1.0000, 
+                0.0000]
+rlc: [0.007534, -0.999971, -0.000617, 
+      0.014802,  0.000728, -0.999890, 
+      0.999862,  0.007524,  0.014808]
+
+tlc: [-0.004070, -0.076316, -0.271781]
+
+tlc: [-0.005, -0.08, -0.27]
+
+kitti = /kitti/camera_color_left/image_raw
+kitti = /kitti/velo/pointcloud
+rosbag(orginal) = /camera/color/image_raw
+---------------------------------------------------------------------------
+camera_matrix: [7.215377e+02, 0.000000e+00, 6.095593e+02, 0.000000e+00,
+   0.000000e+00, 7.215377e+02, 1.728540e+02, 0.000000e+00,
+   0.000000e+00, 0.000000e+00, 1.000000e+00, 0.000000e+00]
+rlc:  [ 0.999924,  -0.009302,  -0.004143,
+   0.009275,   0.999936,   0.004545,
+   0.004213,  -0.004600,   0.999987]
+tlc: [ 5.678042e-02, -2.804313e-02, -5.174551e-02]
+-----------------------------------------------------
+camera_matrix: [789.42838, 0.000000, 344.84939, 0.000000,
+0.000000, 789.375000, 224.42001, 0.000000, 
+0.000000, 0.000000, 1.000000, 0.000000  ]  
+rlc:  [ 0.999924,  -0.009302,  -0.004143,
+   0.009275,   0.999936,   0.004545,
+   0.004213,  -0.004600,   0.999987]
+tlc: [0.006894, -0.072957, 0.114623]
+---------------------------------------------------------------------
+// Compute gradients for edge detection
+  arma::mat Zenhanced = ZI;
+  arma::mat grad_x = arma::zeros(ZI.n_rows, ZI.n_cols);
+  arma::mat grad_y = arma::zeros(ZI.n_rows, ZI.n_cols);
+  arma::mat grad_mag = arma::zeros(ZI.n_rows, ZI.n_cols);
+
+// Calculate gradients (finite difference method)
+for (uint i = 1; i < ZI.n_rows - 1; ++i) {
+    for (uint j = 1; j < ZI.n_cols - 1; ++j) {
+        if (ZI(i, j) > 0) {  // Only consider valid points
+            grad_x(i, j) = std::abs(ZI(i, j + 1) - ZI(i, j - 1)) * 0.5;
+            grad_y(i, j) = std::abs(ZI(i + 1, j) - ZI(i - 1, j)) * 0.5;
+            grad_mag(i, j) = std::sqrt(grad_x(i, j) * grad_x(i, j) + grad_y(i, j) * grad_y(i, j));
+        }
+    }
+}
+
+// Apply edge preservation by damping high-gradient regions  weighted edge-aware filtering
+double edge_threshold = max_var * 0.3; 
+for (uint i = 1; i < ZI.n_rows - 1; ++i) {
+    for (uint j = 1; j < ZI.n_cols - 1; ++j) {
+        if (grad_mag(i, j) > edge_threshold) {
+            double weight = 1.0 - (grad_mag(i, j) / edge_threshold);
+            Zenhanced(i, j) = ZI(i, j) * weight + Zenhanced(i, j) * (1 - weight);
+        }
+    }
+}
+
+// Replace ZI with the edge-preserved Zenhanced
+ZI = Zenhanced;
+
+
+
+
+
+

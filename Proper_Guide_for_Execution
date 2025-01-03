@@ -1,0 +1,33 @@
+
+
+1.
+source devel/setup.bash
+roslaunch usb_cam usb_cam.launch
+
+2.
+source devel/setup.bash
+roslaunch lidar_camera_fusion vlp16OnImg.launch
+
+3.
+source devel/setup.bash
+roslaunch lidar_camera_fusion interpolated_vlp16.launch
+
+4.
+source devel/setup.bash
+rosrun rviz rviz -f velodyne
+
+----------------------------------------------------------------------
+
+if problem arrives in camera 
+add below command in usb_cam.launch file below the usb camera node
+ 
+<param name="video_device" value="/dev/video1" />
+
+----------------------------------------------------------------------
+
+For offline (kITTI Dataset)
+i will provide files , in this system its not there
+source devel/setup.bash
+roslaunch lidar_camera_fusion vlp16OnImg_offline.launch 
+
+

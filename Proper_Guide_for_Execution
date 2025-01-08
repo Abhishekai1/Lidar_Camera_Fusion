@@ -18,7 +18,7 @@ rosrun rviz rviz -f velodyne
 
 ----------------------------------------------------------------------
 
-if problem arrives in camera 
+if problem arrives in camera launch then
 add below command in usb_cam.launch file below the usb camera node
  
 <param name="video_device" value="/dev/video1" />

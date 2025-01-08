@@ -1,4 +1,4 @@
-
+Just open the terminal and paste the commands & if any changes are made in code after the build then you again have to build for the changes to apply
 
 1.
 source devel/setup.bash
@@ -26,8 +26,10 @@ add below command in usb_cam.launch file below the usb camera node
 ----------------------------------------------------------------------
 
 For offline (kITTI Dataset)
-i will provide files , in this system its not there
+
+rosbag play --loop kitti_0014_modified.bag
+
 source devel/setup.bash
-roslaunch lidar_camera_fusion vlp16OnImg_offline.launch 
+roslaunch lidar_camera_fusion vlp16OnImg_offline.launch
 
 

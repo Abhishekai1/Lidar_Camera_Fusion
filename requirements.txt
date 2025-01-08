@@ -1,3 +1,29 @@
+# C++ Project 
+# Compiler
+GCC >= 5.4.0 (recommended GCC 9.0+ for optimization)
+Clang >= 3.3
+MSVC >= Visual Studio 2017
+
+# Build System
+CMake >= 3.10 (Required for project configuration and build)
+
+# Libraries
+Armadillo >= 10.0 (Linear algebra library)
+BLAS (Basic Linear Algebra Subprograms)
+LAPACK (Linear Algebra Package)
+OpenCV >= 4.0 (For camera data integration and visualization)
+ROS >= Melodic (Robot Operating System for real-time system integration)
+
+# Optional Libraries for Optimization
+Intel MKL (Math Kernel Library for optimized BLAS/LAPACK)
+
+# Supported Platforms
+Ubuntu 18.04 or later
+NVIDIA Jetson Nano (for embedded systems)
+
+
+
+# Python dependencies
 numpy==1.23.4
 scipy==1.10.1
 opencv-python==4.7.0
@@ -19,3 +45,8 @@ Nvidia Jetson Nano
 
 jetson-stats==3.1.2
 onnxruntime==1.14.0
+
+===================================================
+===================================================
+
+ROS melodic or 1

@@ -1,0 +1,21 @@
+numpy==1.23.4
+scipy==1.10.1
+opencv-python==4.7.0
+matplotlib==3.6.2
+pandas==1.5.2
+PyYAML==6.0
+pyros==0.4.5
+rospy==1.15.15
+matlab_engine==R2022b
+pytorch==1.13.1+cu116
+torchvision==0.14.1+cu116
+nvidia-pyindex==1.0.9
+tensorflow==2.11.0
+
+
+==================================================
+Nvidia Jetson Nano
+==================================================
+
+jetson-stats==3.1.2
+onnxruntime==1.14.0
